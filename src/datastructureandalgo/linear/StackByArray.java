@@ -12,21 +12,17 @@ public class StackByArray<T> {
     int top = -1;
     int size = 0;
 
-    public StackByArray(int size) {
-        this.size = size;
-        this.items = new ArrayList<>(size);
+    public StackByArray() {
+        this.items = new ArrayList<>();
     }
 
     void push(T item) {
-        if (top + 1 == size) {
+        if (top >= size) {
             System.out.println("Stack Overflow");
         } else {
+            items.add(item);
             top++;
-            if(items.size() > top){
-              items.set(top, item);
-            }else{
-              items.add(item);
-            }
+            size++;
         }
     }
 
@@ -45,6 +41,7 @@ public class StackByArray<T> {
             return null;
         } else {
             T item = getTop();
+            items.remove(top);
             top--;
             size--;
             return item;
@@ -67,7 +64,7 @@ public class StackByArray<T> {
     
     
     public static void main(String[] args) {
-     StackByArray<Integer> s1 = new StackByArray<>(3);
+     StackByArray<Integer> s1 = new StackByArray<>();
      s1.push(10);
      s1.push(20);
      s1.push(30);
