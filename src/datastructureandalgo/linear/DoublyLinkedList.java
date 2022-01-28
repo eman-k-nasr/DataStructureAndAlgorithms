@@ -5,9 +5,11 @@
  */
 package datastructureandalgo.linear;
 
+import java.util.NoSuchElementException;
+
 /**
  *
- * @author pc
+ * @author eman kamal 
  */
 public class DoublyLinkedList<T> {
     private Node head;
@@ -26,6 +28,14 @@ public class DoublyLinkedList<T> {
             this.next = next;
             this.prev = prev;
         }
+    }
+    
+    public Node getHead(){
+       return head;
+    }
+    
+    public Node getTail(){
+       return tail;
     }
     
     public int size(){
@@ -70,24 +80,30 @@ public class DoublyLinkedList<T> {
           }
           current = current.next;
         }
-        return null;
+        throw new NoSuchElementException();
     }
     
     public T removeHead(){
-        if(isEmpty()) return null;
+        if(isEmpty()) throw new NoSuchElementException();
         Node temp = head;
-        head = head.next;
-        head.prev = null;
+        Node n = head.next;
+        head = n;
+        if(head != null){
+          head.prev = null;
+        }
         size--;
         System.out.println("removed Head: "+temp.element);
         return temp.element;
     }
     
     public T removeTail(){
-        if(isEmpty()) return null;
+        if(isEmpty()) throw new NoSuchElementException();
         Node temp = tail;
-        tail = tail.prev;
-        tail.next = null;
+        Node p = tail.prev;
+        tail = p;
+        if(tail != null){
+          tail.next = null;
+        }
         size--;
         System.out.println("removed Tail: "+temp.element);
         return temp.element;
@@ -95,7 +111,6 @@ public class DoublyLinkedList<T> {
     
     public T removeElement(T element){
         Node node = find(element);
-        if(node == null) return null;
         Node p = node.prev;
         Node n = node.next;
         if(node == head){
@@ -146,7 +161,7 @@ public class DoublyLinkedList<T> {
         System.out.println("size is : "+dll.size);
         dll.iterateForwad();
         
-        System.out.println("iterate backward");
+        System.out.println("-----iterate backward-------");
         dll.iterateBackward();
         
         //10->8->4->2->6->7-> NULL
@@ -172,7 +187,16 @@ public class DoublyLinkedList<T> {
         
         Integer removedElement3 = dll.removeElement(2);//4->3->NULL   
         System.out.println("removed "+removedElement3);
-        dll.iterateForwad();    
+        dll.iterateForwad(); 
+        
+        dll.removeTail();
+        dll.removeElement(4);
+        dll.iterateForwad();
+        
+//        dll.removeHead(); //3
+//        dll.removeElement(3);
+//        dll.removeElement(2); //throw exception
+//        dll.removeHead();//throw exception
     }
     
 }
