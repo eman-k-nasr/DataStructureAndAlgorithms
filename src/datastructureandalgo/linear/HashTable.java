@@ -1,5 +1,7 @@
 package datastructureandalgo.linear;
 
+import java.util.ArrayList;
+
 /**
  *
  * @emankamal
@@ -59,6 +61,18 @@ public class HashTable<K, V> {
        return count;
     }
     
+    public ArrayList<HashTableNode<K,V>> entries(){
+        return hashTableArray.getNodes();
+    }
+    
+    public ArrayList<K> keys(){
+       return hashTableArray.getKeys();
+    }
+    
+    public ArrayList<V> values(){
+       return hashTableArray.getValues();
+    }
+    
     public static void main(String[] args) {
         HashTable<String,String> hashTable = new HashTable(10);
         hashTable.put("user1", "eman");
@@ -70,11 +84,19 @@ public class HashTable<K, V> {
         hashTable.remove("user2");
         System.out.println("size: "+hashTable.count());
         System.out.println("get user4: "+hashTable.getValue("user4"));
-        hashTable.put("user4", "tsts");
-        System.out.println("get user4: "+hashTable.getValue("user4"));
-
-
-
+//        hashTable.put("user4", "tsts");
+//        System.out.println("get user4: "+hashTable.getValue("user4"));
+        for(String key : hashTable.keys()){
+            System.out.print(key+",");
+        }
+        System.out.println("");
+        for(String value : hashTable.values()){
+            System.out.print(value+",");
+        }
+        System.out.println("");
+        for(HashTableNode<String,String> node : hashTable.entries()){
+            System.out.print("["+node.getKey()+":"+node.getValue()+"]"+",");
+        }
 
 
         
