@@ -1,33 +1,49 @@
 package datastructureandalgo.linear;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
  *
  * @emankamal
  */
-public class LinkedList<T> {
+public class LinkedList<T> implements Iterable<T> {
 
-    private Node head;
-    private Node tail;
+    private LinkedListNode<T> head;
+    private LinkedListNode<T> tail;
     private int size;
 
-    class Node {
-
-        T element;
-        Node next;
-
-        Node(T element) {
-            this.element = element;
-        }
-
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator(head);
     }
 
-    public Node getHead() {
+    public class LinkedListIterator implements Iterator<T> {
+
+        private LinkedListNode<T> current;
+
+        public LinkedListIterator(LinkedListNode<T> head) {
+            current = head;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public T next() {
+            LinkedListNode<T> temp = current;
+            current = current.next;
+            return temp.element;
+        }
+    }
+
+    public LinkedListNode<T> getHead() {
         return head;
     }
 
-    public Node getTail() {
+    public LinkedListNode<T> getTail() {
         return tail;
     }
 
@@ -40,7 +56,7 @@ public class LinkedList<T> {
     }
 
     public void addHead(T element) {
-        Node temp = new Node(element);
+        LinkedListNode<T> temp = new LinkedListNode<>(element);
         if (isEmpty()) {
             head = tail = temp;
             temp.next = null;
@@ -53,7 +69,7 @@ public class LinkedList<T> {
     }
 
     public void addTail(T element) {
-        Node temp = new Node(element);
+        LinkedListNode<T> temp = new LinkedListNode<>(element);
         if (isEmpty()) {
             head = tail = temp;
             temp.next = null;
@@ -68,7 +84,7 @@ public class LinkedList<T> {
     }
 
     public void iterateForward() {
-        Node current = head;
+        LinkedListNode<T> current = head;
         while (current != null) {
             System.out.print(current.element + " ");
             current = current.next;
@@ -80,7 +96,7 @@ public class LinkedList<T> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        Node temp = head;
+        LinkedListNode<T> temp = head;
         if (size == 1) {
             head = tail = null;
         } else {
@@ -95,11 +111,11 @@ public class LinkedList<T> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        Node temp = tail;
+        LinkedListNode<T> temp = tail;
         if (size == 1) {
             head = tail = null;
         } else {
-            Node current = head;
+            LinkedListNode<T> current = head;
             while (current.next != tail) {
                 current = current.next;
             }
@@ -111,8 +127,35 @@ public class LinkedList<T> {
         return temp.element;
     }
 
-    public Node find(T element) {
-        Node current = head;
+    public T remove(T element){
+        LinkedListNode<T> node = find(element);
+        LinkedListNode<T> current;
+        LinkedListNode<T> prev;
+        if(node == head){
+          System.out.println("node to be deleted is head");
+          return removeHead();
+        }else if(node == tail){
+          System.out.println("node to be deleted is tail");
+          return removeTail();
+        }else{
+          System.out.println("node to be deleted is some node");
+          current = head.next;
+          prev = head;
+          while(current != null && !(current.element.equals(element))){
+              prev = current;
+              current = current.next;
+          }
+          if(current == null) return null;
+          prev.next = current.next;
+          if(current == tail) tail = prev;
+          size--;
+          return current.element;
+          
+        }
+    }
+    
+    public LinkedListNode<T> find(T element) {
+        LinkedListNode<T> current = head;
         while (current != null) {
             if (current.element.equals(element)) {
                 return current;
@@ -120,6 +163,12 @@ public class LinkedList<T> {
             current = current.next;
         }
         throw new NoSuchElementException();
+    }
+    
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
     }
 
     public static void main(String[] args) {
@@ -137,16 +186,33 @@ public class LinkedList<T> {
         System.out.println("head is: " + linkedList.head.element + " tail is :" + linkedList.tail.element);
         System.out.println("size is : " + linkedList.size);
         linkedList.iterateForward();
-        
+
         //10->8->4->2->6->7-> NULL
         Integer removedHead1 = linkedList.removeHead();//8->4->2->6->7-> NULL
-        System.out.println("removed "+removedHead1);
-        System.out.println("size is : "+linkedList.size);
+        System.out.println("removed " + removedHead1);
+        System.out.println("size is : " + linkedList.size);
+        linkedList.iterateForward();
+
+        Integer removedTail1 = linkedList.removeTail();
+        System.out.println("removed " + removedTail1);
         linkedList.iterateForward();
         
-        Integer removedTail1 = linkedList.removeTail();
-        System.out.println("removed "+removedTail1);
+        Integer removedElement1 = linkedList.remove(4);
+        System.out.println("removed " + removedElement1);
         linkedList.iterateForward();
+        
+        Integer removedElement2 = linkedList.remove(8);
+        System.out.println("removed " + removedElement2);
+        linkedList.iterateForward();
+        
+        Integer removedElement3 = linkedList.remove(6);
+        System.out.println("removed " + removedElement3);
+        linkedList.iterateForward();
+        
+        Integer removedElement4 = linkedList.remove(2);
+        System.out.println("removed " + removedElement4);
+        linkedList.iterateForward();
+
     }
 
 }

@@ -123,6 +123,7 @@ public class DoublyLinkedList<T> {
             System.out.println("node to be deleted is some node");
             p.next = n;
             n.prev = p;
+            size--;
             return node.element;
         }
     }
@@ -172,25 +173,31 @@ public class DoublyLinkedList<T> {
         
         Integer removedElement1 = dll.removeElement(8);//4->2->6->7-> NULL
         System.out.println("removed "+removedElement1);
+        System.out.println("size is : "+dll.size);
         dll.iterateForward();
         
         Integer removedTail1 = dll.removeTail();//4->2->6->NULL
         System.out.println("removed "+removedTail1);
+        System.out.println("size is : "+dll.size);
         dll.iterateForward();
         
         Integer removedElement2 = dll.removeElement(6);//4->2->NULL
         System.out.println("removed "+removedElement2);
+        System.out.println("size is : "+dll.size);
         dll.iterateForward();
         
         dll.addTail(3);//4->2->3->NULL
+        System.out.println("size is : "+dll.size);
         dll.iterateForward();
         
         Integer removedElement3 = dll.removeElement(2);//4->3->NULL   
         System.out.println("removed "+removedElement3);
+        System.out.println("size is : "+dll.size);
         dll.iterateForward(); 
         
         dll.removeTail();
         dll.removeElement(4);
+        System.out.println("size is : "+dll.size);
         dll.iterateForward();
         
 //        dll.removeHead(); //3
