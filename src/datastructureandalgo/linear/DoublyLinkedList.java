@@ -127,7 +127,7 @@ public class DoublyLinkedList<T> {
         }
     }
     
-    public void iterateForwad(){
+    public void iterateForward(){
        Node current = head;
        while(current != null){
          System.out.print(current.element+" ");
@@ -153,13 +153,13 @@ public class DoublyLinkedList<T> {
         dll.addHead(10);//10->8->4->2-> NULL
         System.out.println("head is: "+dll.head.element+" tail is :"+dll.tail.element);
         System.out.println("size is : "+dll.size);
-        dll.iterateForwad();
+        dll.iterateForward();
         
         dll.addTail(6);//10->8->4->2->6-> NULL
         dll.addTail(7);//10->8->4->2->6->7-> NULL
         System.out.println("head is: "+dll.head.element+" tail is :"+dll.tail.element);
         System.out.println("size is : "+dll.size);
-        dll.iterateForwad();
+        dll.iterateForward();
         
         System.out.println("-----iterate backward-------");
         dll.iterateBackward();
@@ -168,30 +168,30 @@ public class DoublyLinkedList<T> {
         Integer removedHead1 = dll.removeHead();//8->4->2->6->7-> NULL
         System.out.println("removed "+removedHead1);
         System.out.println("size is : "+dll.size);
-        dll.iterateForwad();
+        dll.iterateForward();
         
         Integer removedElement1 = dll.removeElement(8);//4->2->6->7-> NULL
         System.out.println("removed "+removedElement1);
-        dll.iterateForwad();
+        dll.iterateForward();
         
         Integer removedTail1 = dll.removeTail();//4->2->6->NULL
         System.out.println("removed "+removedTail1);
-        dll.iterateForwad();
+        dll.iterateForward();
         
         Integer removedElement2 = dll.removeElement(6);//4->2->NULL
         System.out.println("removed "+removedElement2);
-        dll.iterateForwad();
+        dll.iterateForward();
         
         dll.addTail(3);//4->2->3->NULL
-        dll.iterateForwad();
+        dll.iterateForward();
         
         Integer removedElement3 = dll.removeElement(2);//4->3->NULL   
         System.out.println("removed "+removedElement3);
-        dll.iterateForwad(); 
+        dll.iterateForward(); 
         
         dll.removeTail();
         dll.removeElement(4);
-        dll.iterateForwad();
+        dll.iterateForward();
         
 //        dll.removeHead(); //3
 //        dll.removeElement(3);

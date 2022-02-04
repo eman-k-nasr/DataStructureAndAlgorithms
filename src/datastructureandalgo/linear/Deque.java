@@ -56,7 +56,7 @@ public class Deque<T> {
     }
     
     public void printForward(){
-        list.iterateForwad();
+        list.iterateForward();
     }
     
     public void printBackward(){
